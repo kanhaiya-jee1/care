@@ -1,0 +1,63 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+
+
+@import "tailwindcss";
+
+*{
+    font-family: Outfit;
+}
+
+
+.active hr{
+    @apply block
+}
+
+ 
+
+::-webkit-scrollbar{
+    @apply hidden
+}
+
+/* 🌊 Wave Animation */
+
+
+/* If you're using Tailwind, keep these lines at the top of index.css */
+/* @tailwind base;
+@tailwind components; */
+@tailwind utilities;
+
+/* --- Wave animation just on hover --- */
+@keyframes img-wave {
+  0%   { transform: rotate(0deg); }
+  15%  { transform: rotate(10deg); }
+  30%  { transform: rotate(-8deg); }
+  45%  { transform: rotate(6deg); }
+  60%  { transform: rotate(-4deg); }
+  75%  { transform: rotate(2deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.wave-on-hover {
+  /* Better rotation pivot for a "waving" feel */
+  transform-origin: 50% 85%;
+  will-change: transform;
+}
+
+.wave-on-hover:hover {
+  animation: img-wave 0.9s ease-in-out;
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .wave-on-hover:hover {
+    animation: none;
+  }
+}
+
+@media (max-width:740px){
+    .active p{
+       @apply text-white bg-blue-500
+    }
+}
+
