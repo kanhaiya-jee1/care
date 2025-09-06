@@ -2,24 +2,33 @@ import mongoose from "mongoose";
 
 const doctorSchema = new mongoose.Schema(
   {
-    name: { type: String, required: true },
-    email: { type: String, required: true, unique: required },
-    password: { type: String, required: true },
-    image: { type: String, required: true },
-    speciality: { type: String, required: true },
-    degree: { type: String, required: true },
-    experience: { type: String, required: true },
-    about: { type: String, required: true },
-    available: { type: Boolean, required: true },
-    fees: { type: Number, required: true },
-    address: { type: Object, required: true },
-    date: { type: Number, required: true },
-    slots_booked: { type: Object, default: {} },
+    name: {
+      type: String,
+      required: true,  // name is required
+      trim: true
+    },
+    email: {
+      type: String,
+      required: true,  // email is required
+      unique: true,    // email must be unique
+      lowercase: true
+    },
+    password: {
+      type: String,
+      required: true   // password is required
+    },
+    specialization: {
+      type: String,
+      required: false
+    },
+    phone: {
+      type: String,
+      required: false
+    }
   },
-  { minimize: false }
+  { timestamps: true }
 );
 
-const doctorModel =
-  mongoose.models.doctor || mongoose.model("doctor", doctorSchema);
+const Doctor = mongoose.model("Doctor", doctorSchema);
 
-export default doctorModel;
+export default Doctor;

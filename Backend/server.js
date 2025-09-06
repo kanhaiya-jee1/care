@@ -1,14 +1,17 @@
 import express from "express";
 import cors from "cors";
-import "dotenv/config";
-import ConnectDB from "./config/mongodb.js";
+import dotenv from "dotenv";
 import connectCloudinary from "./config/cloudinary.js";
 import adminRouter from "./routes/adminRoute.js";
+import connectDB from "./config/mongodb.js";
+
+dotenv.config({
+  path: "./.env",
+});
 
 // app config
 const app = express();
-const port = process.env.PORT || 4000;
-ConnectDB()
+
 connectCloudinary()
 
 
@@ -25,5 +28,12 @@ app.get("/", (req, res) => {
   res.send("API WORKING  Greate");
 });
 
-
-app.listen(port, () => console.log("Server Started on port", port));
+connectDB()
+  .then(() => {
+    app.listen(process.env.PORT || 4000, () => {
+      console.log(`Server is running on port ${process.env.PORT || 4000}`);
+    });
+  })
+  .catch((error) => {
+    console.log("mongoDB connection failed !!!", error);
+  });
